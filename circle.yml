@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 0.10.32
+dependencies:
+  pre:
+    - npm i -g bower
+  override:
+    - npm i
+    - bower i
