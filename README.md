@@ -75,6 +75,49 @@ Finally, add the `content-for` tag to your index.html so that the addon will inj
 </html>
 ```
 
+### Setting the visitor
+
+To set the [visitor][2] you can access the Caliper config via the Caliper Service.
+
+First inject the caliper service into your required objects:
+
+```javascript
+// app/initializers/caliper-service.js
+
+export function initialize(container, application) {
+  application.inject('controller', 'caliper', 'service:caliper');
+}
+
+export default {
+  name: 'caliper-service'
+  initialize: initialize
+}
+```
+
+Then use the service to set the visitor:
+
+```javascript
+// app/pods/something/controller.js
+
+import Em from 'ember';
+
+export default Em.Controller.extend({
+  actions: {
+    authenticate: function() {
+      var username    = this.get('username');
+      var password    = this.get('password');
+
+      this.authService.authenticate(username, password)
+        .then(function() {
+          this.caliper.setVisitor(username);
+
+          this.transitionTo('success');
+        }.bind(this));
+    }
+  }
+});
+```
+
 ## Installation
 
 * `git clone` this repository
@@ -98,3 +141,4 @@ Finally, add the `content-for` tag to your index.html so that the addon will inj
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
 
 [1]: http://docs.caliper.io/configuration.html 'Caliper config'
+[2]: http://docs.caliper.io/configuration.html#visitor 'Setting the visitor'
