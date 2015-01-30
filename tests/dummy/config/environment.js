@@ -19,6 +19,17 @@ module.exports = function(environment) {
     }
   };
 
+  ENV.caliper = {
+    apiKey: 'TEST_API_KEY',
+    debug: true,
+    minDuration: 10
+  };
+
+  ENV.contentSecurityPolicy = {
+    'script-src': "'self' 'unsafe-inline'",
+    'img-src': "'self' *.caliper.io"
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
